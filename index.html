@@ -1,77 +1,50 @@
-// حساب الوقت منذ تاريخ التعارف
-function updateTimer() {
-    const startDate = new Date('2025-10-23T00:00:00');
-    const now = new Date();
-    const diff = now - startDate;
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى Wedody❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <div class="glass-card">
+            <div class="floating-hearts">❤️</div>
+            <h1 class="title">إلى حبيبتي Wedody❤️</h1>
+            
+            <div class="love-letter">
+                <p>منذ يوم 23/10/2025، تغيرت حياتي تماماً. أنتِ لستِ مجرد شخص، أنتِ عالمي بأسره.</p>
+                <p>كل يوم يمر، يزداد حبي لكِ ويتعمق في قلبي.</p>
+            </div>
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
+            <div class="counter-section">
+                <p>لقد مضى على أول يوم لنا:</p>
+                <div id="timer"></div>
+            </div>
 
-    document.getElementById('timer').innerHTML = 
-        `${days} يوم و ${hours} ساعة و ${minutes} دقيقة`;
-}
+            <div class="proposal-box">
+                <p class="question">هل تحبيني وتتزوجيني؟</p>
+                <div class="buttons">
+                    <button id="yesBtn" onclick="accepted()">نعم، طبعاً! 💍</button>
+                    <button id="noBtn" onmouseover="moveButton()">لا</button>
+                </div>
+            </div>
 
-setInterval(updateTimer, 1000);
-updateTimer();
+            <div id="finalMessage" class="hidden">
+                <h2>أجمل خبر في حياتي! ❤️ أحبك للأبد</h2>
+            </div>
+        </div>
+    </div>
 
-// ميزة زر "لا" الهارب
-function moveButton() {
-    const btn = document.getElementById('noBtn');
-    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
-}
+    <audio id="bgMusic" loop>
+        <source src="amr-diab.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicControl" onclick="toggleMusic()">🔊 تشغيل الموسيقى</button>
 
-// عند قبول العرض
-function accepted() {
-    document.querySelector('.proposal-box').style.display = 'none';
-    document.getElementById('finalMessage').classList.remove('hidden');
-    // إطلاق تأثير قلوب كثيفة
-    setInterval(createHeart, 50);
-}
-
-// التحكم بالموسيقى
-function toggleMusic() {
-    const music = document.getElementById('bgMusic');
-    const btn = document.getElementById('musicControl');
-    if (music.paused) {
-        music.play();
-        btn.innerHTML = "⏸️ إيقاف الموسيقى";
-    } else {
-        music.pause();
-        btn.innerHTML = "🔊 تشغيل الموسيقى";
-    }
-}
-
-// رسم القلوب المتساقطة (خلفية)
-const canvas = document.getElementById('heartCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let hearts = [];
-function createHeart() {
-    hearts.push({
-        x: Math.random() * canvas.width,
-        y: canvas.height + 20,
-        size: Math.random() * 20 + 10,
-        speed: Math.random() * 2 + 1,
-        opacity: Math.random()
-    });
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hearts.forEach((h, i) => {
-        ctx.globalAlpha = h.opacity;
-        ctx.font = h.size + 'px serif';
-        ctx.fillText('❤️', h.x, h.y);
-        h.y -= h.speed;
-        if (h.y < -20) hearts.splice(i, 1);
-    });
-    requestAnimationFrame(draw);
-}
-setInterval(createHeart, 300);
-draw();
+    <canvas id="heartCanvas"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
