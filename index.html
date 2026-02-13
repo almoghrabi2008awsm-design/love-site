@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى Wedody❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-blue: #020c1b; /* أزرق داكن جداً وفخم */
+            --accent-red: #ff4d6d;
+            --gold: #ffd700;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-blue);
+            font-family: 'Cairo', sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* تأثير النجوم المتلألئة في الخلفية */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a192f 0%, #020c1b 100%);
+            z-index: -1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            max-width: 450px;
+            width: 90%;
+            z-index: 10;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .title {
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--accent-red);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+        }
+
+        .love-letter {
+            line-height: 1.8;
+            font-size: 1.2rem;
+            margin: 25px 0;
+            color: #e6f1ff;
+        }
+
+        .counter-section {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        #timer {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .proposal-box { margin-top: 30px; position: relative; height: 120px; }
+
+        button {
+            padding: 12px 35px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            transition: 0.4s;
+            font-size: 1.1rem;
+        }
+
+        #yesBtn {
+            background: var(--accent-red);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yesBtn:hover { transform: scale(1.1); background: #ff758f; }
+
+        #noBtn {
+            background: #444;
+            color: #ccc;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-120%);
+        }
+
+        #finalMessage {
+            display: none;
+            animation: zoomIn 1s auto;
+        }
+
+        #finalMessage h2 { color: var(--gold); }
+
+        #heartCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { transform: scale(0); } to { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container"></div>
+    <canvas id="heartCanvas"></canvas>
+
+    <div style="display:none">
+        <div id="player"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card" id="mainCard">
+            <h1 class="title">Wedody ❤️</h1>
+            
+            <div class="love-letter">
+                <p>منذ يوم <b>23/10/2025</b>، والكون يتجمل في عيني..</p>
+                <p>"يا حلم عمري اللي في خيالي من زمان"</p>
+            </div>
+
+            <div class="counter-section">
+                <p>كل لحظة معكِ هي عيد.. مضى على تعارفنا:</p>
+                <div id="timer">جاري الحساب...</div>
+            </div>
+
+            <div class="proposal-box" id="proposalSection">
+                <p style="font-size: 1.3rem;">هل تحبيني وتتزوجيني؟ 💍</p>
+                <button id="yesBtn" onclick="accepted()">نعم، أقبل! ❤️</button>
+                <button id="noBtn" onmouseover="moveButton()">لا</button>
+            </div>
+
+            <div id="finalMessage">
+                <h2>أجمل "نعم" في الوجود! 💍❤️</h2>
+                <p>أعدكِ أن أكون لكِ السند والحب الأبدي.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', width: '0',
+                videoId: 'fGFB29lQ-Vs',
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'fGFB29lQ-Vs' },
+                events: { 'onReady': onPlayerReady }
+            });
+        }
+        function onPlayerReady(event) {
+            // كتم الصوت مبدئياً ليتوافق مع قوانين المتصفح
+            event.target.mute();
+            event.target.playVideo();
+        }
+
+        // حساب الوقت
+        function updateTimer() {
+            const startDate = new Date('2025-10-23T00:00:00');
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / 1000 / 60) % 60);
+            document.getElementById('timer').innerHTML = `${days} يوم، ${hours} ساعة، ${mins} دقيقة`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // زر "لا" الهارب
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        // عند الضغط على نعم
+        function accepted() {
+            document.getElementById('proposalSection').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+            if (player) { player.unMute(); player.setVolume(100); player.playVideo(); }
+            startIntenseHearts();
+        }
+
+        // تأثير القلوب الحمراء المتساقطة
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let hearts = [];
+
+        function createHeart() {
+            hearts.push({
+                x: Math.random() * canvas.width,
+                y: canvas.height + 20,
+                size: Math.random() * 15 + 10,
+                speed: Math.random() * 3 + 1,
+                opacity: Math.random() * 0.5 + 0.5
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach((h, i) => {
+                ctx.globalAlpha = h.opacity;
+                ctx.font = h.size + 'px serif';
+                ctx.fillStyle = "#ff4d6d";
+                ctx.fillText('❤️', h.x, h.y);
+                h.y -= h.speed;
+                if (h.y < -20) hearts.splice(i, 1);
+            });
+            requestAnimationFrame(draw);
+        }
+        setInterval(createHeart, 200);
+        draw();
+
+        function startIntenseHearts() {
+            setInterval(createHeart, 50);
+        }
+    </script>
+</body>
+</html>
