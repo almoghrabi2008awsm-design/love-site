@@ -1,33 +1,77 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أغلى إنسان</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="heart-icon">❤️</div>
-            <h1 id="main-title">أهلاً بكِ في عالمي الخاص</h1>
-            <p id="message">هذا المكان صُمم خصيصاً للتعبير عما بداخلي...</p>
-            
-            <div class="photo-frame">
-                <img src="https://via.placeholder.com/150" alt="صورة خاصة" id="couple-img">
-            </div>
+// حساب الوقت منذ تاريخ التعارف
+function updateTimer() {
+    const startDate = new Date('2025-10-23T00:00:00');
+    const now = new Date();
+    const diff = now - startDate;
 
-            <button onclick="revealSurprise()" id="action-btn">اضغط لرؤية المفاجأة</button>
-            
-            <div id="extra-content" class="hidden">
-                <p class="love-quote">"أنتِ لستِ فقط جزءاً من يومي، أنتِ كل عمري."</p>
-                <div class="timer">لقد مر على وجودنا معاً: <span id="days-count">0</span> يوم</div>
-            </div>
-        </div>
-    </div>
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
 
-    <canvas id="heartCanvas"></canvas>
+    document.getElementById('timer').innerHTML = 
+        `${days} يوم و ${hours} ساعة و ${minutes} دقيقة`;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// ميزة زر "لا" الهارب
+function moveButton() {
+    const btn = document.getElementById('noBtn');
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+}
+
+// عند قبول العرض
+function accepted() {
+    document.querySelector('.proposal-box').style.display = 'none';
+    document.getElementById('finalMessage').classList.remove('hidden');
+    // إطلاق تأثير قلوب كثيفة
+    setInterval(createHeart, 50);
+}
+
+// التحكم بالموسيقى
+function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicControl');
+    if (music.paused) {
+        music.play();
+        btn.innerHTML = "⏸️ إيقاف الموسيقى";
+    } else {
+        music.pause();
+        btn.innerHTML = "🔊 تشغيل الموسيقى";
+    }
+}
+
+// رسم القلوب المتساقطة (خلفية)
+const canvas = document.getElementById('heartCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let hearts = [];
+function createHeart() {
+    hearts.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + 20,
+        size: Math.random() * 20 + 10,
+        speed: Math.random() * 2 + 1,
+        opacity: Math.random()
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach((h, i) => {
+        ctx.globalAlpha = h.opacity;
+        ctx.font = h.size + 'px serif';
+        ctx.fillText('❤️', h.x, h.y);
+        h.y -= h.speed;
+        if (h.y < -20) hearts.splice(i, 1);
+    });
+    requestAnimationFrame(draw);
+}
+setInterval(createHeart, 300);
+draw();
