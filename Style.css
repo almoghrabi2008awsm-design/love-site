@@ -1,77 +1,102 @@
+:root {
+    --dark-blue: #0a192f;
+    --accent-red: #ff4d6d;
+    --gold: #ffd700;
+}
+
 body {
     margin: 0;
     padding: 0;
+    background-color: var(--dark-blue);
+    font-family: 'Cairo', sans-serif;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
 }
 
-.container {
-    z-index: 10;
+/* خلفية النجوم والقلوب */
+.stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
+    z-index: -1;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 30px;
     text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    max-width: 500px;
+    width: 90%;
 }
 
-.card {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    max-width: 400px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.3);
-    animation: fadeIn 2s ease-in-out;
+.title {
+    font-family: 'Reem Kufi', sans-serif;
+    color: var(--accent-red);
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
 }
 
-.heart-icon {
-    font-size: 50px;
-    animation: pulse 1.5s infinite;
+.love-letter {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin: 20px 0;
 }
 
-h1 { color: #d63384; margin-bottom: 10px; }
+#timer {
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 30px;
+}
 
-.photo-frame img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 5px solid #ff9a9e;
-    margin: 15px 0;
-    object-fit: cover;
+.proposal-box .question {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
 }
 
 button {
-    background: #ff4d6d;
-    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
     border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-family: 'Cairo', sans-serif;
+    font-weight: bold;
     transition: 0.3s;
 }
 
-button:hover { background: #c9184a; transform: scale(1.05); }
-
-.hidden { display: none; margin-top: 20px; }
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+#yesBtn {
+    background: var(--accent-red);
+    color: white;
+    font-size: 1.2rem;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+#noBtn {
+    background: #666;
+    color: white;
+    position: absolute;
 }
 
-#heartCanvas {
+#musicControl {
     position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 0.8rem;
 }
 
+.hidden { display: none; }
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
